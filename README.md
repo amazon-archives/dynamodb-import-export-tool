@@ -2,7 +2,7 @@
 
 ## Running as an executable
 
-java -jar dynamodb-import-export-tool.jar
+mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface"
 
 --destinationEndpoint dynamodb.us-east-1.amazonaws.com // the endpoint where the destination table is located.
 
