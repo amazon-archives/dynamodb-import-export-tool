@@ -23,6 +23,26 @@ mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInte
  --totalSections 4 \
  
  --section 3"
+
+### Description of Arguments
+
+destinationEndpoint: The endpoint where the destination table is located
+
+destinationTable: The destination table to write to
+
+sourceEndpoint: The endpoint where the source table is located
+
+sourceTable: The source table to read from
+
+readThroughputRatio: The ratio of read throughput to consume from the source table
+
+writeThroughputRatio: The ratio of write throughput to consume from the destination table
+
+maxWriteThreads: (Optional, default=128 * Available_Processors) Maximum number of write threads to create
+
+totalSections: (Optional, default=1) Total number of sections to split the bootstrap into. Each application will only scan and write one section
+
+section: (Optional, default=0) section to read and write. Only will scan this one section of all sections, [0...totalSections-1]
  
 
 ## Using the API
