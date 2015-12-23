@@ -3,15 +3,25 @@
 ## Running as an executable
 
 mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface" \
+
  -Dexec.args=" \
+ 
  --destinationEndpoint dynamodb.us-east-1.amazonaws.com \
+ 
  --destinationTable nameOfDestinationTable  \
+ 
  --sourceEndpoint dynamodb.us-west-1.amazonaws.com \
+ 
  --sourceTable nameOfSourceTable \
+ 
  --readThroughputRatio .5  \
+ 
  --writeThroughputRatio .7 \
+ 
  --maxWriteThreads 128 \
+ 
  --totalSections 4 \
+ 
  --section 3"
  
 
