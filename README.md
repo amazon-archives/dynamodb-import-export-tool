@@ -2,7 +2,7 @@
 
 ## Running as an executable
 
-mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface"
+mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface" -Dexec.args="
 
 --destinationEndpoint dynamodb.us-east-1.amazonaws.com // the endpoint where the destination table is located.
 
@@ -20,7 +20,7 @@ mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInte
 
 --totalSections 4 // (Optional, default=1) Total number of sections to split the bootstrap into. Each application will only scan and write one section.
 
---section 3 // (Optional, default=0) section to read and write. Only will scan this one section of all sections, [0...totalSections-1].
+--section 3 // (Optional, default=0) section to read and write. Only will scan this one section of all sections, [0...totalSections-1]."
 
 ## Using the API
 
