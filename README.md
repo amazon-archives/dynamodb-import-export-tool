@@ -2,25 +2,18 @@
 
 ## Running as an executable
 
-mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface" -Dexec.args="
-
---destinationEndpoint dynamodb.us-east-1.amazonaws.com // the endpoint where the destination table is located.
-
---destinationTable nameOfDestinationTable // the destination table to write to.
-
---sourceEndpoint dynamodb.us-west-1.amazonaws.com // the endpoint where the source table is located.
-
---sourceTable nameOfSourceTable // the source table to read from.
-
---readThroughputRatio .5 // the ratio of read throughput to consume from the source table.
-
---writeThroughputRatio .7 // the ratio of write throughput to consume from the destination table.
-
---maxWriteThreads 128 // (Optional, default=128 &#42; Available_Processors) Maximum number of write threads to create.
-
---totalSections 4 // (Optional, default=1) Total number of sections to split the bootstrap into. Each application will only scan and write one section.
-
---section 3 // (Optional, default=0) section to read and write. Only will scan this one section of all sections, [0...totalSections-1]."
+mvn exec:java -Dexec.mainClass="com.amazonaws.dynamodb.bootstrap.CommandLineInterface" \
+ -Dexec.args=" \
+ --destinationEndpoint dynamodb.us-east-1.amazonaws.com \
+ --destinationTable nameOfDestinationTable  \
+ --sourceEndpoint dynamodb.us-west-1.amazonaws.com \
+ --sourceTable nameOfSourceTable \
+ --readThroughputRatio .5  \
+ --writeThroughputRatio .7 \
+ --maxWriteThreads 128 \
+ --totalSections 4 \
+ --section 3"
+ 
 
 ## Using the API
 
