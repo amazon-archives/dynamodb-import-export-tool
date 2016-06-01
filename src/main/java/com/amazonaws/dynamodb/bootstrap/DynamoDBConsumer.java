@@ -50,8 +50,8 @@ public class DynamoDBConsumer extends AbstractLogConsumer {
         this.client = client;
         this.tableName = tableName;
         this.rateLimiter = RateLimiter.create(rateLimit);
-        threadPool = exec;
-        this.exec = new ExecutorCompletionService<Void>(threadPool);
+        super.threadPool = exec;
+        super.exec = new ExecutorCompletionService<Void>(threadPool);
     }
 
     /**

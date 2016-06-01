@@ -67,8 +67,8 @@ public class ScanSegmentWorker implements Callable<SegmentedScanResult> {
             int itemSize = isConsistent ? BootstrapConstants.STRONGLY_CONSISTENT_READ_ITEM_SIZE
                     : BootstrapConstants.EVENTUALLY_CONSISTENT_READ_ITEM_SIZE;
 
-            lastConsumedCapacity = (int) ((result.getScannedCount() / Math.max(1.0, result.getCount()))
-                    * (ItemSizeCalculator.calculateScanResultSizeInBytes(result) / itemSize));
+            lastConsumedCapacity = (result.getScannedCount() / (int) Math.max(1.0, result.getCount()))
+                    * (ItemSizeCalculator.calculateScanResultSizeInBytes(result) / itemSize);
         }
 
         if (result.getLastEvaluatedKey() != null

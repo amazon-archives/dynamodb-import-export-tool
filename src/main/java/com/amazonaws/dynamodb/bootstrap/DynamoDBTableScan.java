@@ -76,6 +76,7 @@ public class DynamoDBTableScan {
                 .withTotalSegments(request.getTotalSegments())
                 .withSegment(request.getSegment())
                 .withReturnConsumedCapacity(request.getReturnConsumedCapacity())
+                .withLimit(request.getLimit())
                 .withConsistentRead(request.getConsistentRead());
     }
 }

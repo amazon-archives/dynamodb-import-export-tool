@@ -100,7 +100,7 @@ public class DynamoDBConsumerWorker implements Callable<Void> {
                         }
                     }
                 }
-            } while (unprocessedItems.get(tableName) != null);
+            } while (unprocessedItems != null && unprocessedItems.get(tableName) != null);
             return consumedCapacities;
         } finally {
             if (interrupted) {

@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.dynamodb.bootstrap.constants.BootstrapConstants;
 import com.amazonaws.dynamodb.bootstrap.exception.NullReadCapacityException;
@@ -30,6 +31,7 @@ import com.amazonaws.dynamodb.bootstrap.exception.SectionOutOfRangeException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
 
 /**
  * The interface that parses the arguments, and begins to transfer data from one
@@ -53,8 +55,15 @@ public class CommandLineInterface {
         CommandLineArgs params = new CommandLineArgs();
         JCommander cmd = new JCommander(params);
 
-        // parse given arguments
-        cmd.parse(args);
+        try {
+            // parse given arguments
+            cmd.parse(args);
+        } catch (ParameterException e) {
+            LOGGER.error(e);
+            JCommander.getConsole().println(e.getMessage());
+            cmd.usage();
+            System.exit(1);
+        }
 
         // show usage information if help flag exists
         if (params.getHelp()) {
@@ -70,10 +79,13 @@ public class CommandLineInterface {
         final int maxWriteThreads = params.getMaxWriteThreads();
         final boolean consistentScan = params.getConsistentScan();
 
+        final ClientConfiguration sourceConfig = new ClientConfiguration().withMaxConnections(BootstrapConstants.MAX_CONN_SIZE);
+        final ClientConfiguration destinationConfig = new ClientConfiguration().withMaxConnections(BootstrapConstants.MAX_CONN_SIZE);
+
         final AmazonDynamoDBClient sourceClient = new AmazonDynamoDBClient(
-                new DefaultAWSCredentialsProviderChain());
+                new DefaultAWSCredentialsProviderChain(), sourceConfig);
         final AmazonDynamoDBClient destinationClient = new AmazonDynamoDBClient(
-                new DefaultAWSCredentialsProviderChain());
+                new DefaultAWSCredentialsProviderChain(), destinationConfig);
         sourceClient.setEndpoint(sourceEndpoint);
         destinationClient.setEndpoint(destinationEndpoint);
 
@@ -136,7 +148,7 @@ public class CommandLineInterface {
     /**
      * Returns the thread pool for the destination DynamoDB table.
      */
-    public static ExecutorService getDestinationThreadPool(int maxWriteThreads) {
+    private static ExecutorService getDestinationThreadPool(int maxWriteThreads) {
         int corePoolSize = BootstrapConstants.DYNAMODB_CLIENT_EXECUTOR_CORE_POOL_SIZE;
         if (corePoolSize > maxWriteThreads) {
             corePoolSize = maxWriteThreads - 1;

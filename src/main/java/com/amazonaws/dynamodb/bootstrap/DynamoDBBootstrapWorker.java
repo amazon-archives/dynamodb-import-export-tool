@@ -64,7 +64,7 @@ public class DynamoDBBootstrapWorker extends AbstractLogProvider {
         this.totalSections = totalSections;
         this.consistentScan = consistentScan;
 
-        threadPool = exec;
+        super.threadPool = exec;
     }
 
     /**
@@ -91,7 +91,7 @@ public class DynamoDBBootstrapWorker extends AbstractLogProvider {
         if (numProcessors > numThreads) {
             numThreads = numProcessors;
         }
-        this.threadPool = Executors.newFixedThreadPool(numThreads);
+        super.threadPool = Executors.newFixedThreadPool(numThreads);
     }
 
     /**
@@ -105,6 +105,7 @@ public class DynamoDBBootstrapWorker extends AbstractLogProvider {
 
         final ScanRequest request = new ScanRequest().withTableName(tableName)
                 .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
+                .withLimit(BootstrapConstants.SCAN_LIMIT)
                 .withConsistentRead(consistentScan);
 
         final ParallelScanExecutor scanService = scanner

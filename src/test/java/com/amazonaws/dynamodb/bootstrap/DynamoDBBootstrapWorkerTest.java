@@ -17,7 +17,6 @@ package com.amazonaws.dynamodb.bootstrap;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertTrue;
 import static org.powermock.api.easymock.PowerMock.createMock;
-import static org.powermock.api.easymock.PowerMock.mockStatic;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -31,7 +30,6 @@ import static org.powermock.api.easymock.PowerMock.*;
 
 import com.amazonaws.dynamodb.bootstrap.exception.SectionOutOfRangeException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.DescribeTableResult;
 
 /**
  * Unit Tests for DynamoDBBootstrapWorker
@@ -52,9 +50,6 @@ public class DynamoDBBootstrapWorkerTest {
      */
     private static void setupMockInitialization() throws Exception {
         mockClient = createMock(AmazonDynamoDBClient.class);
-
-        mockStatic(DynamoDBBootstrapWorker.class);
-
         mockThreadPool = createMock(ThreadPoolExecutor.class);
     }
 

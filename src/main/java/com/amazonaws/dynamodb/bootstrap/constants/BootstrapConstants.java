@@ -38,7 +38,7 @@ public class BootstrapConstants {
             .getRuntime().availableProcessors() * 128;
 
     /**
-     * Seconds to wait for thread to terminate before retrying or exiting.
+     * Core pool size of a default thread pool.
      */
     public static final int DYNAMODB_CLIENT_EXECUTOR_CORE_POOL_SIZE = Runtime
             .getRuntime().availableProcessors() * 4;
@@ -83,7 +83,7 @@ public class BootstrapConstants {
     /**
      * The size of an empty document in a DynamoDB item.
      */
-    public static int LOGICAL_SIZE_OF_EMPTY_DOCUMENT = 3;
+    public static final int LOGICAL_SIZE_OF_EMPTY_DOCUMENT = 3;
 
     /**
      * Max number of bytes in a DynamoDB number attribute.
@@ -100,4 +100,13 @@ public class BootstrapConstants {
      */
     public static final int EVENTUALLY_CONSISTENT_READ_ITEM_SIZE = 2 * STRONGLY_CONSISTENT_READ_ITEM_SIZE;
 
+    /**
+     * Max scan result size
+     */
+    public static final int SCAN_LIMIT = 1000;
+
+    /**
+     * Max connection size limit
+     */
+    public static final int MAX_CONN_SIZE = 5000;
 }
